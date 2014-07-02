@@ -8,12 +8,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IOExample {
 
-	public static void main(String[] args) {
-		// readFile();
-		// writeFile();
+	public static void main(String[] args) throws IOException {
+		
+		String fileContents = readFile();
+		String[] lines = fileContents.split("(\\r|\\n)");
+
+		System.out.println("Checking pattern!");
+		System.out.println("*************");
+		Pattern comment = Pattern.compile("^#.*?$");
+		for (int i = 0; i < lines.length; i++) {
+			Matcher commentMatcher = comment.matcher(lines[i]);
+			if(commentMatcher.matches()){
+				continue;
+			}
+			// kdfsJGJK_HKGKsdfjk=jks sdl,l skldjh
+			System.out.println("This line is a valid property.");
+			System.out.println(lines[i]);
+		}
 	}
 
 	public static void writeFile() throws IOException {
@@ -37,14 +53,14 @@ public class IOExample {
 		}
 	}
 
-	public static void readFile() throws IOException {
+	public static String readFile() throws IOException {
 		File applicationProperties = new File(
 				"src/main/resources/application.properties");
 		InputStream fileInputStream = null;
 		BufferedReader bufferedFileReader = null;
+		StringBuilder builder = new StringBuilder();
 		try {
 			fileInputStream = new FileInputStream(applicationProperties);
-			StringBuilder builder = new StringBuilder();
 			bufferedFileReader = new BufferedReader(new InputStreamReader(
 					fileInputStream));
 			String readLine = bufferedFileReader.readLine();
@@ -62,6 +78,7 @@ public class IOExample {
 				fileInputStream.close();
 			}
 		}
+		return builder.toString();
 	}
 
 }
