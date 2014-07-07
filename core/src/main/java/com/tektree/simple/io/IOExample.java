@@ -3,6 +3,7 @@ package com.tektree.simple.io;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +15,35 @@ import java.util.regex.Pattern;
 public class IOExample {
 
 	public static void main(String[] args) throws IOException {
-		
+		File fileObject = new File("/home/mint/test.txt");
+		InputStream stream = null;
+		try {
+			stream = new FileInputStream(fileObject);
+			System.out.println("The stream was created successfully.");
+			// read the contents here
+			StringBuilder builder = new StringBuilder();
+			int input = stream.read();
+			System.out.println("First char: " + input);
+			while(input != -1) {
+				builder.append((char) input);
+				input = stream.read();
+			}
+			System.out.println("-------------------------");
+			System.out.println("The contents of the stream are:");
+			System.out.println(builder.toString());
+			System.out.println("-------------------------");
+		} finally {
+			if (stream != null) {
+				System.out.println("The stream will be closed.");
+				stream.close();
+			} else {
+				System.out.println("The stream was never created.");
+			}
+		}
+	}
+
+	public static void regex() throws IOException {
+
 		String fileContents = readFile();
 		String[] lines = fileContents.split("(\\r|\\n)");
 
@@ -23,7 +52,7 @@ public class IOExample {
 		Pattern comment = Pattern.compile("^#.*?$");
 		for (int i = 0; i < lines.length; i++) {
 			Matcher commentMatcher = comment.matcher(lines[i]);
-			if(commentMatcher.matches()){
+			if (commentMatcher.matches()) {
 				continue;
 			}
 			// kdfsJGJK_HKGKsdfjk=jks sdl,l skldjh
@@ -34,15 +63,15 @@ public class IOExample {
 
 	public static void writeFile() throws IOException {
 		StringBuilder builder = new StringBuilder();
-		builder.append("This ");
-		builder.append("is ");
-		builder.append("just ");
+		builder.append("This "); // "This "
+		builder.append("is "); // "This is "
+		builder.append("just "); // "This is just "
 		builder.append("an ");
-		builder.append("example.");
+		builder.append("example."); // "This is just an example."
 
 		OutputStream fileOutputStream = null;
 		try {
-			File exampleFile = new File("src/main/resources/example.txt");
+			File exampleFile = new File("/home/mint/example.txt");
 			fileOutputStream = new FileOutputStream(exampleFile);
 			byte[] data = builder.toString().getBytes("UTF-8");
 			fileOutputStream.write(data);
