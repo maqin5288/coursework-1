@@ -1,6 +1,11 @@
 package com.tektree.simple.generators;
 
 public class Fibonacci {
+	
+	public static void main(String[] args) {
+		System.out.println("Printing the fibonacci series up to " + args[0]);
+		printSeries(Integer.valueOf(args[0]));
+	}
 
 	public static void printSeries(Integer max) {
 		Integer previous = 0;
