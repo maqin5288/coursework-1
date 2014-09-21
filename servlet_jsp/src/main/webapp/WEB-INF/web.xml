@@ -24,4 +24,31 @@
   	<servlet-name>sayHelloJsp</servlet-name>
   	<url-pattern>/sayHelloJsp</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>urlRewriteServlet</servlet-name>
+  	<servlet-class>servlet_jsp.servlet.UrlRewrite</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>urlRewriteServlet</servlet-name>
+  	<url-pattern>/urlRewriteServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>cookiesServlet</servlet-name>
+  	<servlet-class>servlet_jsp.servlet.Cookies</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>cookiesServlet</servlet-name>
+  	<url-pattern>/cookiesServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>httpSessionServlet</servlet-name>
+  	<servlet-class>servlet_jsp.servlet.HttpSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>httpSessionServlet</servlet-name>
+  	<url-pattern>/httpSessionServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
