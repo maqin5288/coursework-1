@@ -2,6 +2,7 @@ package com.example.hibernate;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,6 +14,8 @@ import org.hibernate.criterion.Restrictions;
 import com.example.hibernate.domain.Address;
 
 public class App {
+	
+	static Logger logger = Logger.getLogger(App.class);
 
 	public static void main(String[] args) {
 		SessionFactory sessionFactory = null;
@@ -60,8 +63,8 @@ public class App {
 
 	private static void deleteAllAddressesWhoseIdIsGreaterThanSix(
 			Session session) {
-		System.out.println("-----------------");
-		System.out.println("Deleting the objects whose ID > 6");
+		// least important 1 2 3 4 warn 5 error very important
+		logger.debug("Deleting the objects whose ID > 6");
 		Criteria criteria = session.createCriteria(Address.class);
 		criteria.add(Restrictions.gt("id", 6L));
 		List<Address> addresses = criteria.list();
@@ -73,36 +76,33 @@ public class App {
 	}
 
 	private static void runCriteriaQuery(Session session) {
-		System.out.println("-----------------");
-		System.out.println("Running Criteria Query");
+		logger.debug("Running Criteria Query");
 		Criteria criteria = session.createCriteria(Address.class);
 		// criteria.add(Restrictions.le("id", 3L));
 		criteria.add(Restrictions.sqlRestriction("id <= 3"));
 		List<Address> addresses = criteria.list();
 		for (Address address : addresses) {
-			System.out.println(address.getCity());
+			logger.info(address.getCity());
 		}
 	}
 
 	private static void runHqlQuery(Session session) {
-		System.out.println("-----------------");
-		System.out.println("Running HQL Query");
+		logger.debug("Running HQL Query");
 		Query hqlQuery = session
 				.createQuery("from Address address where address.id <= 3"); // HQL
 		List<Address> addresses = hqlQuery.list();
 		for (Address address : addresses) {
-			System.out.println(address.getCity());
+			logger.info(address.getCity());
 		}
 	}
 
 	private static void runSqlQuery(Session session) {
-		System.out.println("-----------------");
-		System.out.println("Running SQL Query");
+		logger.debug("Running SQL Query");
 		Query sqlQuery = session
 				.createSQLQuery("select * from address where id <= 3"); // SQL
 		List<Object[]> addresses = sqlQuery.list();
 		for (Object[] address : addresses) {
-			System.out.println(address[3]);
+			logger.info(address[3]);
 		}
 	}
 
