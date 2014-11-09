@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 
 	private String userName;
+	private int age;
 	private Date dateJoined;
-
 	private Date lastLogin;
 
 	public String getUserName() {
@@ -34,6 +34,14 @@ public class User {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 }

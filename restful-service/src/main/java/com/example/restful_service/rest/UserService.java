@@ -22,6 +22,7 @@ public class UserService {
 		if ("qin123".equalsIgnoreCase(id)) {
 			User user = new User();
 			user.setUserName(id);
+			user.setAge(20);
 			user.setDateJoined(new Date());
 			user.setLastLogin(new Date());
 			response = Response.ok(user).build();
